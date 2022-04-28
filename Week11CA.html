@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 11 Coding Assignment</title>
+    <link rel="stylesheet" href="Week11CA.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body> 
+    <!-- game grid of 9 cells -->
+    <div class="container mt-5 p-5 text-center">
+            <div class="col-md"><span class="turn lead">It is X's turn</span></div>
+            <div class="col-md"><button class="btn btn-dark" id="restart">Restart Game</button></div>
+                <div class="gameboard justify-content-center align-items-center x" id="gameboard" style="transform: translate(0px);">
+                <div class="box" data-box=""></div>
+                <div class="box" data-box=""></div>
+                <div class="box" data-box=""></div>
+                <div class="box" data-box=""></div>
+                <div class="box" data-box=""></div>
+                <div class="box" data-box=""></div>
+                <div class="box" data-box=""></div>
+                <div class="box" data-box=""></div>
+                <div class="box" data-box=""></div>
+            </div>
+            <!-- Assignment of data to access from javascript-->
+            <div class="winning-message" id="winningMessage">
+            <div data-winning-message-text=""></div>
+            <button class="btn btn-dark" id="restartBtn">Play Again</button>
+            </div>
+    </div>
+   
+    
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="Week11CA.js"></script>
+
+</body>
+</html>
