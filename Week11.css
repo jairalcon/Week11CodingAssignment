@@ -1,0 +1,211 @@
+/* selects everything on the page, helps with widths and heights */
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+/* creating CSS variables for CSS elements */
+:root {
+    /* creating size for box cells on gameboard */
+    --cell-size: 100px;
+    /* creating variable for when mark is placed inside of game board */
+    --mark-size: calc(var(--cell-size) * .9);
+}
+
+h1,
+h2 {
+    font-size: 75px;
+}
+
+body {
+    margin: 0;
+}
+
+.board {
+    /* will fill entire screen */
+    /* width: 50vw; */
+    height: 50vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    /* aligns items withing the cells, not the cells themselves */
+    align-items: center;
+    grid-template-columns: repeat(3, auto);
+}
+
+.cell {
+    /* creating 9 black boxes with 100px x 100px */
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    /* adding pointer cursor when going over a cell */
+    cursor: pointer;
+}
+
+/* removing boarders from top edges of gameboard */
+.cell:first-child,
+/* 2nd cell */
+.cell:nth-child(2),
+/* 3rd cell */
+.cell:nth-child(3) {
+    border-top: none;
+}
+
+/* left 3 cells */
+.cell:nth-child(3n + 1) {
+    border-left: none;
+}
+
+/* right 3 cells */
+.cell:nth-child(3n + 3) {
+    border-right: none;
+}
+
+/* removing boarders from bottom edges of gameboard */
+.cell:last-child,
+/* last cell */
+.cell:nth-child(8),
+/* 2nd to last cell */
+.cell:nth-child(7) {
+    border-bottom: none;
+}
+
+/* creating pointer that won't click on cell that's already been used */
+.cell.x,
+.cell.circle {
+    cursor: not-allowed;
+}
+
+/* adding above below selector so it doesn't over ride lightgrey below  */
+.cell.x::before,
+.cell.x::after,
+/* adding circle because they can share same CSS */
+.cell.circle::before {
+    /* moved background color here so lightgrey  */
+    background-color: black;
+}
+
+/* !THIS IS ALL FOR X CLASS CSS */
+/* adding hover effect when it's not X or Circle's in the div */
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after,
+/* adding circle to this because it can be shared with X */
+.board.circle .cell:not(.x):not(.circle):hover::before {
+    background-color: lightgrey;
+}
+
+/* targets first cell with x */
+/* using CSS to create an X */
+.cell.x::before,
+.cell.x::after,
+/* adding hover effect when it's X's turn */
+/* and only apply when cell isn't being used by either an X or Circle*/
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after {
+    content: '';
+    position: absolute;
+    /* using 15% of mark size for mark X */
+    width: calc(var(--mark-size) * .15);
+    height: var(--mark-size);
+}
+
+.cell.x::before,
+/* adding hover effect when it's X's turn */
+/* and only apply when cell isn't being used by either an X or Circle*/
+.board.x .cell:not(.x):not(.circle):hover::before {
+    transform: rotate(45deg);
+}
+
+.cell.x::after,
+/* adding hover effect when it's X's turn */
+/* and only apply when cell isn't being used by either an X or Circle*/
+.board.x .cell:not(.x):not(.circle):hover::after {
+    transform: rotate(-45deg);
+}
+
+/* !THIS IS FOR ALL CIRCLE CSS */
+/* targets div with circle class to make shape of circle */
+.cell.circle::before,
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle):hover::before,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+    content: '';
+    position: absolute;
+    /* creates circle but looks like a black dot */
+    border-radius: 50%;
+}
+
+/* creating smaller circle behind larger circle */
+.cell.circle::before,
+.board.circle .cell:not(.x):not(.circle):hover::before {
+    width: var(--mark-size);
+    height: var(--mark-size);
+}
+
+/* creating a shape that is 70% the size of the circle */
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+    width: calc(var(--mark-size) * .7);
+    height: calc(var(--mark-size) * .7);
+    background-color: white;
+}
+
+/* styling restartButton to appear in the center of the screen to restart game */
+.winning-message {
+    /* adding display to none because we don't want it to show up by default */
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .9);
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 5rem;
+    /* stacks winning message and button on top of each other */
+    flex-direction: column;
+}
+
+/* styling winning message button */
+.winning-message button {
+    font-size: 3rem;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: .25rem .5rem;
+    cursor: pointer;
+}
+
+/* changing button when hovered over */
+.winning-message button:hover {
+    background-color: black;
+    color: white;
+    border-color: white;
+}
+
+/* adding display flex down here to reveal message when show class is applied to class */
+.winning-message.show {
+    display: flex;
+}
+
+/* Adding an animation to the button Play Again when hovered */
+.btn:hover {
+    transform: translateY(-2px);
+    cursor: pointer;
+}
+
+.winning-message.show {
+    display: flex;
+}
+
+.turn {
+    font-size: 3rem;
+    font-family: "Heebo", sans-serif;
+}
